@@ -8,7 +8,7 @@
 
 a minimal python library for colorful terminal output.
 
-works with foreground colors, background colors, gradients, and text styles. works in **24-bit truecolor** or **8-bit fallback** mode.
+works with foreground colors, background colors, gradients, and text styles. 24 bit n 8 bit modes supported
 
 ---
 
