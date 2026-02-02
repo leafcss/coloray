@@ -1,110 +1,40 @@
-# coloray
+from coloray import color, style, truecolor, ansi8bit
 
-A minimal Python library for colorful terminal output with support for 24-bit TrueColor, 8-bit fallback, and beautiful gradients.
+truecolor()  # ts 24 bit colors
 
----
+# foreground named colors
+print(color.RED + "red" + color.RESET)
+print(color.ORANGE + "orange" + color.RESET)
+print(color.YELLOW + "yellow" + color.RESET)
+print(color.LIME + "lime" + color.RESET)
+print(color.GREEN + "green" + color.RESET)
+print(color.CYAN + "cyan" + color.RESET)
+print(color.LIGHTBLUE + "lightblue" + color.RESET)
+print(color.BLUE + "blue" + color.RESET)
+print(color.MAGENTA + "magenta" + color.RESET)
+print(color.BLACK + "black" + color.RESET)
+print(color.RESET + "wowowo" + color.RESET)
 
-## Features
+# foreground hex/rgb
+print(color.hex("#058aff") + "hex color" + color.RESET)
+print(color.rgb(255,0,255) + "rgb color" + color.RESET)
 
-* **24-bit TrueColor** support.
-* **8-bit fallback** for older terminal emulators.
-* **Gradients** for both foreground and background.
-* **Text Styles**: Bold, italic, underline, strike, and reverse.
-* **Simple API**: Lightweight and easy to integrate into any CLI project.
+# background colors
+print(color.bg.WHITE + color.BLACK + "bg white color w black txt" + color.RESET + style.RESET)
+print(color.bg.rgb(128,0,128) + color.YELLOW + "bg purple color w yellow txt" + color.RESET + style.RESET)
+print(color.bg.hex("#00FFFF") + color.MAGENTA + "bg cyan color w magenta txt" + color.RESET + style.RESET)
 
----
+# gradient
+print(color.gradient("#FF0000", "#ff8800", "txt gradient red and orange") + color.RESET)
 
-## Install
+# styles
+print(style.BOLD + style.UNDERLINE + style.ITALIC + "wowo" + style.RESET)
+print(style.STRIKE + "strike" + color.RESET)
+ansi8bit() # ts 8bit
 
-```bash
-pip install coloray
-
-```
-
----
-
-## How to Use
-
-### Switching Modes
-
-By default, `coloray` uses 24-bit mode. You can manually toggle modes based on your terminal's capabilities:
-
-```python
-from coloray import truecolor, ansi8bit
-
-truecolor()  # Enable 24-bit TrueColor mode
-ansi8bit()   # Fallback to 8-bit mode
-
-```
-
-### Foreground Colors
-
-```python
-from coloray import color
-
-# Standard named colors
-print(color.RED + "Red Text" + color.RESET)
-print(color.LIME + "Lime Text" + color.RESET)
-print(color.CYAN + "Cyan Text" + color.RESET)
-
-# Hex and RGB colors
-print(color.hex("#058aff") + "Hex Color" + color.RESET)
-print(color.rgb(255, 0, 255) + "RGB Color" + color.RESET)
-
-```
-
-### Text Styles
-
-```python
-from coloray import style
-
-print(style.BOLD + "Bold Text" + style.RESET)
-print(style.ITALIC + "Italic Text" + style.RESET)
-print(style.UNDERLINE + "Underline Text" + style.RESET)
-print(style.STRIKE + "Strikethrough" + style.RESET)
-
-# Combine styles and colors
-print(style.BOLD + style.UNDERLINE + color.RED + "Bold Red Underline" + style.RESET)
-
-```
-
-### Background Colors
-
-```python
-from coloray import color, style
-
-# Named backgrounds
-print(color.bg.RED + "Red Background" + color.RESET)
-
-# Background + Foreground combinations
-print(color.bg.WHITE + color.BLACK + "Black text on White" + color.RESET)
-
-# RGB / Hex backgrounds
-print(color.bg.hex("#00ffff") + color.MAGENTA + "Magenta on Cyan" + color.RESET)
-
-```
-
-### Gradients
-
-Gradients automatically interpolate between two colors.
-
-```python
-from coloray import color
-
-# Foreground gradient
-print(color.gradient("#ff0000", "#ff8800", "Red to Orange Gradient") + color.RESET)
-
-# Background gradient with a fixed foreground color
-print(color.bg.gradient("#ff0000", "#ff8800", "Gradient BG", fg=color.BLACK) + color.RESET)
-
-```
-
----
-
-## Notes
-
-* **Resetting**: Always use `color.RESET` or `style.RESET` to prevent color bleeding into your next terminal line.
-* **Compatibility**: Gradients, Hex, and RGB inputs automatically adjust their output based on whether you have `truecolor()` or `ansi8bit()` enabled.
-* **Naming**: All named colors are available for both foreground (`color.RED`) and background (`color.bg.RED`).
-
----
+print(color.RED + "red (8-bit)" + color.RESET)
+print(color.ORANGE + "orange (8-bit)" + color.RESET)
+print(color.LIME + "lime (8-bit)" + color.RESET)
+print(color.bg.rgb(128,0,128) + color.YELLOW + "bg purple with yellow text (8-bit)" + color.RESET + style.RESET)
+print(color.gradient("#FF0000","#FF8800","gradient red->orange (8-bit)") + color.RESET)
+print(style.BOLD + style.UNDERLINE + style.ITALIC + "wowo (8-bit)" + style.RESET)
