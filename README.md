@@ -1,128 +1,107 @@
 # coloray
 
-[![PyPI version](https://img.shields.io/pypi/v/coloray?color=blue&label=PyPI)](https://pypi.org/project/coloray/)
-[![PyPI downloads](https://img.shields.io/pypi/dm/coloray?color=green&label=downloads)](https://pypistats.org/packages/coloray)
-[![License](https://img.shields.io/badge/license-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0.en.html)
-[![GitHub stars](https://img.shields.io/github/stars/leafcss/coloray?style=social)](https://github.com/leafcss/coloray/stargazers)
-[![GitHub watchers](https://img.shields.io/github/watchers/leafcss/coloray?style=social)](https://github.com/leafcss/coloray/watchers)
-
-a minimal python library for colorful terminal output.
-
-works with foreground colors, background colors, gradients, and text styles. 24 bit n 8 bit modes supported
+A minimal Python library for colorful terminal output with support for 24-bit TrueColor, 8-bit fallback, and beautiful gradients.
 
 ---
 
-## features
+## Features
 
-- 24 bit support  
-- 8 bit fallback for older terminals  
-- gradients (foreground + background)  
-- background colors with optional foreground  
-- text styles: bold, italic, underline, strike, reverse  
-- easy to use, just like colorama but even better fr 
+* **24-bit TrueColor** support.
+* **8-bit fallback** for older terminal emulators.
+* **Gradients** for both foreground and background.
+* **Text Styles**: Bold, italic, underline, strike, and reverse.
+* **Simple API**: Lightweight and easy to integrate into any CLI project.
 
 ---
 
-## install
+## Install
 
 ```bash
 pip install coloray
-````
+
+```
 
 ---
 
-## how to use
+## How to Use
 
-### switching modes
+### Switching Modes
 
-you can pick between 24-bit truecolor and 8-bit colors:
+By default, `coloray` uses 24-bit mode. You can manually toggle modes based on your terminal's capabilities:
 
 ```python
 from coloray import truecolor, ansi8bit
 
-truecolor()  # 24 bit mode
-ansi8bit()   # 8 bit mode
+truecolor()  # Enable 24-bit TrueColor mode
+ansi8bit()   # Fallback to 8-bit mode
+
 ```
 
----
-
-### colors
+### Foreground Colors
 
 ```python
 from coloray import color
 
-print(color.red + "red" + color.RESET)
-print(color.orange + "orange" + color.RESET)
-print(color.yellow + "yellow" + color.RESET)
-print(color.lime + "lime" + color.RESET)
-print(color.green + "green" + color.RESET)
-print(color.cyan + "cyan" + color.RESET)
-print(color.lightblue + "lightblue" + color.RESET)
-print(color.blue + "blue" + color.RESET)
-print(color.magenta + "magenta" + color.RESET)
-print(color.black + "black" + color.RESET)
-print(color.white + "white" + color.RESET)
-print(color.RESET + "reset text" + color.RESET)
+# Standard named colors
+print(color.RED + "Red Text" + color.RESET)
+print(color.LIME + "Lime Text" + color.RESET)
+print(color.CYAN + "Cyan Text" + color.RESET)
 
-# hex and rgb colors
-print(color.hex("#058aff") + "hex color" + color.RESET)
-print(color.rgb(255,0,255) + "rgb color" + color.RESET)
+# Hex and RGB colors
+print(color.hex("#058aff") + "Hex Color" + color.RESET)
+print(color.rgb(255, 0, 255) + "RGB Color" + color.RESET)
+
 ```
 
----
-
-### text styles
+### Text Styles
 
 ```python
 from coloray import style
 
-print(style.bold + "bold" + style.RESET)
-print(style.italic + "italic" + style.RESET)
-print(style.underline + "underline" + style.RESET)
-print(style.strike + "strike" + style.RESET)
-print(style.bold + style.underline + style.italic + "combined styles" + style.RESET)
+print(style.BOLD + "Bold Text" + style.RESET)
+print(style.ITALIC + "Italic Text" + style.RESET)
+print(style.UNDERLINE + "Underline Text" + style.RESET)
+print(style.STRIKE + "Strikethrough" + style.RESET)
+
+# Combine styles and colors
+print(style.BOLD + style.UNDERLINE + color.RED + "Bold Red Underline" + style.RESET)
+
 ```
 
----
-
-### background colors
+### Background Colors
 
 ```python
-# named backgrounds
-print(color.bg.red + "bg red" + color.RESET)
-print(color.bg.orange + "bg orange" + color.RESET)
-print(color.bg.yellow + "bg yellow" + color.RESET)
+from coloray import color, style
 
-# background + foreground
-print(color.bg.white + color.black + "bg white with black text" + color.RESET + style.RESET)
+# Named backgrounds
+print(color.bg.RED + "Red Background" + color.RESET)
 
-# rgb / hex backgrounds
-print(color.bg.rgb(128,0,128) + color.yellow + "bg purple with yellow text" + color.RESET + style.RESET)
-print(color.bg.hex("#00ffff") + color.magenta + "bg cyan with magenta text" + color.RESET + style.RESET)
+# Background + Foreground combinations
+print(color.bg.WHITE + color.BLACK + "Black text on White" + color.RESET)
+
+# RGB / Hex backgrounds
+print(color.bg.hex("#00ffff") + color.MAGENTA + "Magenta on Cyan" + color.RESET)
+
 ```
 
----
+### Gradients
 
-### gradients
+Gradients automatically interpolate between two colors.
 
 ```python
 from coloray import color
 
-# foreground gradient
-print(color.gradient("#ff0000","#ff8800","gradient red->orange") + color.RESET)
-print(color.gradient("#00ff00","#0000ff","gradient green->blue") + color.RESET)
-print(color.gradient("#ff00ff","#00ffff","gradient magenta->cyan") + color.RESET)
+# Foreground gradient
+print(color.gradient("#ff0000", "#ff8800", "Red to Orange Gradient") + color.RESET)
 
-# background gradient with optional foreground color
-print(color.bg.gradient("#ff0000","#ff8800","gradient bg", fg=color.black) + style.RESET)
+# Background gradient with a fixed foreground color
+print(color.bg.gradient("#ff0000", "#ff8800", "Gradient BG", fg=color.BLACK) + color.RESET)
+
 ```
-
 ---
 
-### notes
+## Notes
 
-* always use `color.RESET` and `style.RESET` at the end to reset colors and styles.
-* gradients, hex, and rgb automatically adjust to 24 bit or 8 bit mode.
-* background gradients can take a fixed `fg` color to keep text readable.
-* all named colors are available for foreground and background (e.g., `color.red`, `color.bg.red`).
-
+* **Resetting**: Always use `color.RESET` or `style.RESET` to prevent color bleeding into your next terminal line.
+* **Compatibility**: Gradients, Hex, and RGB inputs automatically adjust their output based on whether you have `truecolor()` or `ansi8bit()` enabled.
+* **Naming**: All named colors are available for both foreground (`color.RED`) and background (`color.bg.RED`).
